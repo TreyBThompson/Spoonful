@@ -1,0 +1,45 @@
+## Used in conjunction, makeCacheMatrix() and cacheSolve()
+## calculate the inverse of a specified matrix and store
+## the result for future retrieval
+
+## Create 4x4 matrix of random values
+m<-matrix(runif(16),4,4) 
+
+## makeCacheMatrix() creates a holding area for information 
+## that will be stored with respect to the inverted matrix
+## it "clears the memory" of cacheSolve to identify if a new
+## matrix has been generated since the last inverse 
+## calculation.
+
+makeCacheMatrix <- function(x = data.frame()) {
+
+        mi <<- NULL
+        get <- function() x
+        setinverse <- function(inverse) mi <<- inverse
+        getinverse <- function() mi
+        list(set = set, get = get,
+             setinverse = setinverse,
+             getinverse = getinverse)
+
+}
+
+
+## cacheSolve() returns a matrix, named "finalmi", that is 
+## the inverse of the matrix created earlier.  It only 
+## calculates if there is no inverse stored in memory.  
+## Otherwise, it returns the inverse that was already 
+## calculated.
+
+cacheSolve <- function(x, ...) {
+   
+    mi <- x$getinverse()
+    if(!is.null(mi)) {
+        message("getting cached matrix inverse")
+        return(mi)
+    }
+    data <- x$get()
+    mi <- solve(data)
+    x$setinverse(mi)
+    finalmi<-data.frame(mi)
+    print(finalmi)
+}
