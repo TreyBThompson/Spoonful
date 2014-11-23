@@ -23,7 +23,6 @@ makeCacheMatrix <- function(x = data.frame()) {
 
 }
 
-
 ## cacheSolve() returns a matrix, named "finalmi", that is 
 ## the inverse of the matrix created earlier.  It only 
 ## calculates if there is no inverse stored in memory.  
